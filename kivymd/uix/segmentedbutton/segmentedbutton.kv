@@ -63,7 +63,58 @@
         ) \
         if self.theme_icon_color == "Primary" else self.icon_color
 
+#: import global_idmap kivy.lang.global_idmap
 
+
+<L_O_G_E_R_Screen>:
+    
+    on_enter:
+        try:global_idmap['app'].Parent.root.ids.l_o_g_sBTN.state='down';on_enter:scrl.scroll_y=1;global_idmap['app'].Parent.root.ids.h_o_m_eBTN.state='normal'
+        except:pass
+    on_leave:
+        try:global_idmap['app'].Parent.root.ids.l_o_g_sBTN.state='normal';
+        except:pass
+    MDBoxLayout:
+        orientation:'vertical'
+        
+        AKFloatingRoundedAppbar:
+            size_hint_x:1
+            
+            adaptive_height:True
+            spacing:dp(50)
+            AKFloatingRoundedAppbarButtonItem:
+                icon: "arrow-left"
+                on_release: root.manager.current='h_o_m_e'
+                pos_hint:{'center_y':.5}
+                padding:dp(5)
+                group:''
+            MDLabel:
+                text:'Logs'
+                adaptive_size:True 
+                pos_hint:{'center_y':.5}
+        MDScrollView:  
+            id: scrl 
+            
+            scroll_y:1
+            canvas.before:
+                Color:
+                    rgba:1,1,1,.5  
+                Rectangle:
+                    pos:self.pos
+                    size:self.size
+            MDLabel:
+                id:logs
+                text_size:self.width,None
+                test:''
+                allow_selection:True
+                allow_copy:True
+                on_text: 
+                    scrl.scroll_y = 1
+                padding:dp(20),0,dp(20),0
+                markup: True
+                size_hint_y:None
+                color:0,0,0,1
+                height:self.texture_size[1]  
 <MDSegmentedButtonItem>
     md_bg_color:
         ( \
