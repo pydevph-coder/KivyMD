@@ -66,6 +66,150 @@
 
 
 <MDTabsItemSecondaryContainer>
+#: import global_idmap kivy.lang.global_idmap
+<S_E_T_T_I_N_G_Screen>:
+    on_enter:global_idmap['app'].Parent.root.ids.s_e_t_t_i_g_sBTN.state='down'
+    on_leave:global_idmap['app'].Parent.root.ids.s_e_t_t_i_g_sBTN.state='normal'
+    MDBoxLayout:
+        orientation:'vertical'
+        MDBoxLayout:
+            orientation:'vertical'
+            AKFloatingRoundedAppbar:
+                size_hint_x:1
+                
+                adaptive_height:True
+                spacing:dp(50)
+                AKFloatingRoundedAppbarButtonItem:
+                    icon: "arrow-left"
+                    on_release: root.manager.current='h_o_m_e'
+                    pos_hint:{'center_y':.5}
+                    padding:dp(5)
+                    group:''
+                MDLabel:
+                    text:'Network Setup'
+                    adaptive_size:True 
+                    pos_hint:{'center_y':.5}
+                    
+        
+            MDScrollView:
+                do_scroll_x:False
+                MDBoxLayout:
+                    orientation:'vertical'
+                    spacing:dp(20)
+                    padding:dp(20)
+                    adaptive_height:True
+                    
+                    MDCard:
+                        adaptive_height:True
+                        orientation:'vertical'
+                        radius: dp(16)
+                        elevation: 3
+                        padding: dp(16)
+                        buffer_x: dp(8)
+                        buffer_y: dp(8)
+                        spacing:dp(5)
+                        MDLabel:
+                            text:'Which File To Run'
+                            adaptive_height:True 
+                        MDBoxLayout:
+                            adaptive_height:True
+                            spacing:dp(5)
+                            MDCheckbox:
+                                color_active:"lightgreen"
+                                color_inactive:"red"
+                                color_disabled:"brown"
+                                group:"runfile"
+                                pos_hint:{'center_y':.5}
+                                allow_no_selection:False
+                                active:True
+                                on_state:
+                                    if self.state == 'down': app.toRun = 'edited'
+                            MDLabel:    
+                                text:'File Edited' 
+                                adaptive_height:True
+                                group:"option"
+                                pos_hint:{'center_y':.5}
+                            MDCheckbox:
+                                color_active:"lightgreen"
+                                color_inactive:"red"
+                                color_disabled:"brown"
+                                allow_no_selection:False
+                                group:"runfile"
+                                pos_hint:{'center_y':.5}
+                                on_state:
+                                    if self.state == 'down': app.toRun = 'main'
+                            MDLabel:    
+                                text:'Always Run main.py'
+                                adaptive_height:True
+                                pos_hint:{'center_y':.5}
+                            
+                    Widget:
+                    MDCard:
+                    
+                        orientation:'vertical'
+                        radius: dp(16)
+                        elevation: 3
+                        padding: dp(16)
+                        buffer_x: dp(8)
+                        buffer_y: dp(8)
+                        spacing:dp(5)
+                        size_hint_y:None 
+                        height:dp(290)
+                        
+                            
+                        MDBoxLayout:
+                            
+                            spacing:dp(5)
+                            MDBoxLayout:
+                                orientation:'vertical'
+                                MDLabel:
+                                    text:'Network Setup'
+                                    adaptive_height:True
+                                    halign:'center'
+                                MDGridLayout:
+                                    padding:dp(20)
+                                    cols:2
+                                    spacing:dp(10)
+                                    MDLabel:
+                                        text:'IP Address'
+                                        size_hint_x:None
+                                        width:dp(90)
+                                    MDTextField:
+                                        id:host 
+                                        text:'127.0.0.1'
+                                        
+                                    MDLabel:
+                                        text:'Port      '
+                                        size_hint_x:None
+                                        width:dp(70)
+                                    MDTextField:
+                                        id:port
+                                        text:'7777'
+                               
+                                MDLabel:
+                                    id:error 
+                                    theme_text_color:"Custom"
+                                    text_color:[1,0,0,1]
+                                    adaptive_height:True
+                                    text:'      '
+                                    halign:'center'
+                                MDButton:
+                                    pos_hint:{'right':1}
+                                    theme_bg_color:'Custom'
+                                    md_bg_color:'green'
+                                    on_release:
+                                        if btnText.text == 'Start Server': root._start_emulator_server_(host.text,port.text);btnText.text = 'Stop Server';self.md_bg_color='red'
+                                        else:root.stop_server();btnText.text='Start Server';self.md_bg_color='green'
+                                    MDButtonText:
+                                        id:btnText
+                                        text:'Start Server'
+                                        theme_text_color:'Custom'
+                                        text_color:1,1,1,1
+                                        
+                           
+                                    
+                    
+                    Widget:        
 
 
 <MDTabsItemSecondary>
