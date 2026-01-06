@@ -11,6 +11,93 @@
 <MDSwiperItem>
     size_hint: None, None
 
+#: import Window kivy.core.window.Window
+<ProjectCard>
+    adaptive_height:True
+    md_bg_color: "#373A22" 
+    radius: 16
+    padding:dp(10)
+    spacing:dp(10)
+    MDListItemLeadingAvatar:
+        source:root.avatar
+        on_source:print(self.source)
+        pos_hint:{'center_y':.5}
+    MDBoxLayout:
+        adaptive_height:True
+        orientation:'vertical'
+        pos_hint:{'center_y':.5}
+        MDLabel:
+            text:root.name
+            adaptive_height:True 
+            font_style: "Title"
+            theme_text_color: "Custom"
+            text_color: "#8A8D79"
+            
+        MDLabel:
+            text:root.time
+            font_style: "Body"
+            role: "small" 
+            theme_text_color: "Custom"
+            text_color: "#8A8D79"
+<Loading>:
+    #background_color: (1, 1, 1, 0)
+    background:'./transparent.png'
+    size_hint: .1,.1
+    pos_hint: {"center_x": .5, "center_y": .5}
+    auto_dismiss: False
+  
+
+<MessageBox>:
+    pos_hint:{'center_x':.5,'center_y':.5}
+    size_hint:(.7,.5) if Window.height > Window.width else (.5,.7)
+    auto_dismiss:False
+    on_dismiss:root.is_open = False
+    on_open: root.is_open = True
+    MDBoxLayout:
+        orientation:'vertical'
+        padding:'10dp'
+        md_bg_color:0,0,.5,.5   
+        Label:
+            text:root.title
+            size_hint:None,None
+            size:self.texture_size[0],'40dp'
+            valign:'middle'
+            halign:'left'
+            height: dp(60)
+            font_size:'18dp'
+            on_size:self.setter('text_size')
+        # # MDSeparator:
+        Label:
+            text:root.text
+            halign:'center'
+            valign:'middle'
+            on_size:self.setter('text_size')
+            font_size:'16dp'
+        MDBoxLayout:
+            size_hint:1,None
+            height:'80dp'
+            padding:dp(10)
+            spacing:dp(10)
+            Button:
+                text:'No'
+                opacity:1 if root.type_=='question' else 0
+                on_release:root.btncallback(self.text,app.Parent)
+                disabled:True if not self.opacity else False
+                background_color:.8,0,0,1
+            Button:
+                text:'Ok'
+                opacity:1 if root.type_=='info' else 0
+                on_release:root.btncallback(self.text,app.Parent)
+                disabled:True if not self.opacity else False
+                background_color:0,.8,0,1
+            
+            Button:
+                text:'Yes'
+                background_color:0,.8,0,1
+                opacity:1 if root.type_=='question' else 0
+                on_release:root.btncallback(self.text,app.Parent)
+                disabled:True if not self.opacity else False
+
 
 <_ItemsBox>
     size_hint_x: None
